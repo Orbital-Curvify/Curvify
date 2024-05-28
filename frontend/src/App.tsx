@@ -3,11 +3,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
-// import ForumThreads from "./ForumThreads";
+import ForumThreads from "./ForumThreads";
 // import ForumThread from "./ForumThread";
 // import NewForumThread from "./NewForumThread";
-// import SignIn from "./SignIn";
-// import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import ResponsiveAppBar from "./ResponsiveAppBar";
 // import EditForumThreadComment from "./EditForumThreadComment";
 // import EditForumThread from "./EditForumThread";
@@ -52,13 +52,16 @@ const App = () => {
               <ResponsiveAppBar />
               <Routes>
                 <Route path="/" element={<Home />} />
-                {/* <Route path="/forumThreads" element={<ForumThreads />} />
+                <Route path="/forumThreads" element={<ForumThreads />} />
+               <Route path="/signUp" element={<SignUp />} />
+               <Route path="/signIn" element={<SignIn />} />
+              {/*
                 <Route path="/forumThread/:id" element={<ForumThread />} />
                 <Route path="/EditForumThread/:id" element={<EditForumThread />} />
                 <Route path="/EditForumThreadComment/:id" element={<EditForumThreadComment />} />
                 <Route path="/newForumThread" element={<NewForumThread />} />
-                <Route path="/signIn" element={<SignIn />} />
-                <Route path="/signUp" element={<SignUp />} /> */}
+             
+                 */}
               </Routes>
           </UserContext.Provider>
       </Router>
