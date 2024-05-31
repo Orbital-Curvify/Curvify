@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import ForumThreads from "./ForumThreads";
 // import ForumThread from "./ForumThread";
-// import NewForumThread from "./NewForumThread";
+import NewForumThread from "./NewForumThread";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import ResponsiveAppBar from "./ResponsiveAppBar";
@@ -53,13 +53,14 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/forumThreads" element={<ForumThreads />} />
-               <Route path="/signUp" element={<SignUp />} />
-               <Route path="/signIn" element={<SignIn />} />
+                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/signIn" element={<SignIn />} />
+                <Route path="/newForumThread" element={<NewForumThread />} />
               {/*
                 <Route path="/forumThread/:id" element={<ForumThread />} />
                 <Route path="/EditForumThread/:id" element={<EditForumThread />} />
                 <Route path="/EditForumThreadComment/:id" element={<EditForumThreadComment />} />
-                <Route path="/newForumThread" element={<NewForumThread />} />
+                 />
              
                  */}
               </Routes>
