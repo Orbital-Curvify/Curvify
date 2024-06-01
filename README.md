@@ -1,4 +1,5 @@
 ## TL;DR
+Works on Docker Compose only
 
 ## Usage
 
@@ -29,12 +30,7 @@ Move yourself up the bell curve in different aspects
 User Authentication
 Filters
 
-
-
-
-
 ### Tech Stack
-
 React + Rails + PostgreSQL + Docker Compose + BootStrap + MUI + NGINX
 
 
