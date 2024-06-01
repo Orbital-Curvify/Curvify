@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 // import { UserContext } from "./App";
 import TimeAgo from "react-timeago";
 
-
 interface ForumThread {
   id: number;
   title: string;
@@ -17,23 +16,25 @@ const ForumThreads = (): JSX.Element => {
   const [currentFilter, setCurrentFilter] = useState<string>("All");
   // const { user, setUser } = useContext(UserContext);
 
-
-  const NoForumThreadHTML = (
-    <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
-      <h4>No Forum Threads In This Category yet.</h4>
-    </div>
-  );
-
-  function ForumThreadDeterminer(forumThread: ForumThread[]): any {
-    if (forumThread.length > 0) {
-      return generateForumThreadHTML(forumThread);
-    } else {
-      return NoForumThreadHTML;
-    }
-  }
-
+ 
+  
   useEffect(() => {
-    const url = "/api/v1/forum_thread/index";
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/index`;
+    function ForumThreadDeterminer(forumThread: ForumThread[]): any {
+      if (forumThread.length > 0) {
+        return generateForumThreadHTML(forumThread);
+      } else {
+        return NoForumThreadHTML;
+      }
+    }
+
+    const NoForumThreadHTML = (
+      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+        <h4>No Posts In This Category yet.</h4>
+      </div>
+    );
+
+    
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -42,11 +43,26 @@ const ForumThreads = (): JSX.Element => {
         throw new Error("Network response was not ok.");
       })
       .then((res) => setForumThreads(ForumThreadDeterminer(res)))
-      .catch(() => setForumThreads([NoForumThreadHTML])/*navigate("/forumThreads")*/); // should be navigate("/error") but we don't have an error page
+      .catch(
+        () => setForumThreads([NoForumThreadHTML]) /*navigate("/forumThreads")*/
+      ); // should be navigate("/error") but we don't have an error page
   }, []);
 
   function fetchForumThreadsByCategory(category: string): void {
-    const url = `/api/v1/forum_thread/showForumThreadsByCategory/${category}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/showForumThreadsByCategory/${category}`;
+    function ForumThreadDeterminer(forumThread: ForumThread[]): any {
+      if (forumThread.length > 0) {
+        return generateForumThreadHTML(forumThread);
+      } else {
+        return NoForumThreadHTML;
+      }
+    }
+
+    const NoForumThreadHTML = (
+      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+        <h4>No Posts In This Category yet.</h4>
+      </div>
+    );
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -73,10 +89,14 @@ const ForumThreads = (): JSX.Element => {
             <h5 className="card-title">{forumThread.title}</h5>
             <h6 className="card-title">{forumThread.category}</h6>
             <p className="card-subtitle mb-2 text-muted">
-              Posted by {forumThread.author} <TimeAgo date={forumThread.created_at} />{" "}
+              Posted by {forumThread.author}{" "}
+              <TimeAgo date={forumThread.created_at} />{" "}
             </p>
-            <Link to={`/forumThread/${forumThread.id}`} className="btn custom-button">
-              View Thread
+            <Link
+              to={`/forumThread/${forumThread.id}`}
+              className="btn custom-button"
+            >
+              View Post
             </Link>
           </div>
         </div>
@@ -88,7 +108,7 @@ const ForumThreads = (): JSX.Element => {
   const noForumThread = (
     <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
       <h4>
-        No forumThread yet. Why not <Link to="/newForumThread">create one</Link>
+        No post yet. Why not <Link to="/newForumThread">Create One</Link>
       </h4>
     </div>
   );
@@ -97,8 +117,8 @@ const ForumThreads = (): JSX.Element => {
     <>
       <section className="jumbotron jumbotron-fluid text-center">
         <div className="container py-5">
-          <h1 className="display-4">Forum Threads</h1>
-          <p className="lead text-muted">Discuss about life in NUS</p>
+          <h1 className="display-4">Latest Posts</h1>
+          <p className="lead text-muted">Bartering or using AvoCurve coins</p>
         </div>
       </section>
       <div className="py-5">
@@ -112,7 +132,6 @@ const ForumThreads = (): JSX.Element => {
             <label htmlFor="category">
               Filter by Category
               <select
-               
                 name="category"
                 id="category"
                 className="form-control"
@@ -121,8 +140,10 @@ const ForumThreads = (): JSX.Element => {
                 defaultValue="All"
               >
                 <option value="All">All</option>
-                <option value="Question">Question</option>
-                <option value="Discussion">Discussion</option>
+                <option value="Barter">Barter</option>
+                <option value="Buy with AvoCurve Coin">
+                  Buy with AvoCurve Coin
+                </option>
                 <option value="Off-Advice">Off-Advice</option>
                 <option value="Other">Other</option>
               </select>

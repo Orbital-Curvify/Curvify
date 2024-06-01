@@ -39,7 +39,7 @@ const ForumThread = (): JSX.Element => {
     author: "",
     user_id: 0,
     created_at: "",
-    id: 0, 
+    id: 0,
   });
   const [body, setBody] = useState("");
   const { user, setUser } = useContext(UserContext);
@@ -51,7 +51,7 @@ const ForumThread = (): JSX.Element => {
   console.log(body, "body");
 
   useEffect(() => {
-    const url = `/api/v1/forum_thread/show/${params.id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/show/${params.id}`;
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -72,7 +72,7 @@ const ForumThread = (): JSX.Element => {
   };
 
   const deleteForumThread = (): void => {
-    const url = `/api/v1/forum_thread/destroy/${params.id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/destroy/${params.id}`;
     const token = (
       document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
     ).content;
@@ -95,7 +95,7 @@ const ForumThread = (): JSX.Element => {
   };
 
   const deleteForumThreadComments = (id: number): void => {
-    const url = `/api/v1/forum_thread_comments/destroy/${id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/destroy/${id}`;
     const token = (
       document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
     ).content;
@@ -230,7 +230,7 @@ const ForumThread = (): JSX.Element => {
   };
 
   const fetchCommentsForThread = (): void => {
-    const url = `/api/v1/forum_thread_comments/showCommentsForThread/${params.id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/showCommentsForThread/${params.id}`;
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -271,7 +271,7 @@ const ForumThread = (): JSX.Element => {
     };
     setBody("");
     event.preventDefault();
-    const url = "/api/v1/forum_thread_comments/create";
+    const url =`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/create`;
     if (body.length === 0) return;
     fetch(url, {
       method: "POST",
@@ -325,7 +325,9 @@ const ForumThread = (): JSX.Element => {
                     multiline
                     rows={5}
                     className="card form-control"
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange(event, setBody)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      onChange(event, setBody)
+                    }
                   />
                   <button
                     type="submit"

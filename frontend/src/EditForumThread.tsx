@@ -7,8 +7,6 @@ interface ForumThread {
   body: string;
 }
 
-
-
 const EditForumThread: React.FC = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -25,12 +23,15 @@ const EditForumThread: React.FC = () => {
       .replace(/>/g, "&gt;");
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>, setFunction: React.Dispatch<React.SetStateAction<string>>): void => {
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setFunction: React.Dispatch<React.SetStateAction<string>>
+  ): void => {
     setFunction(event.target.value);
   };
 
   useEffect(() => {
-    const url = `/api/v1/forum_thread/show/${params.id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/show/${params.id}`;
     fetch(url)
       .then((response) => {
         if (response.ok) {
@@ -51,7 +52,7 @@ const EditForumThread: React.FC = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const url = `/api/v1/forum_thread/update/${params.id}`;
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/update/${params.id}`;
     if (
       forumThread.title.length === 0 ||
       forumThread.category.length === 0 ||
@@ -64,7 +65,9 @@ const EditForumThread: React.FC = () => {
       body: stripHtmlEntities(forumThread.body),
       // user_id: user.id,
     };
-    const token = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement).content;
+    const token = (
+      document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
+    ).content;
     fetch(url, {
       method: "PUT",
       headers: {
@@ -111,10 +114,12 @@ const EditForumThread: React.FC = () => {
                   required
                   value={forumThread.category}
                   onChange={handleChange}
-                  // defaultValue="Question"
+                  // defaultValue="Barter"
                 >
-                  <option value="Question">Question</option>
-                  <option value="Discussion">Discussion</option>
+                  <option value="Barter">Barter</option>
+                  <option value="Buy with AvoCurve Coin">
+                    Buy with AvoCurve Coin
+                  </option>
                   <option value="Off-Advice">Off-Advice</option>
                   <option value="Other">Other</option>
                 </select>
@@ -146,5 +151,3 @@ const EditForumThread: React.FC = () => {
 };
 
 export default EditForumThread;
-
-

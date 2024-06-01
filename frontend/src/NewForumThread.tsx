@@ -5,11 +5,11 @@ import { UserContext } from "./App";
 const NewForumThread = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState<string>("");
-  const [category, setCategory] = useState<string>("Question");
+  const [category, setCategory] = useState<string>("Barter");
   const [body, setBody] = useState<string>("");
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-  const stripHtmlEntities = (str:string) => {
+  const stripHtmlEntities = (str: string) => {
     return String(str)
       .replace(/\n/g, "<br> <br>")
       .replace(/</g, "&lt;")
@@ -17,7 +17,9 @@ const NewForumThread = () => {
   };
 
   const onChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
     setFunction: React.Dispatch<React.SetStateAction<string>>
   ): void => {
     setFunction(event.target.value);
@@ -30,8 +32,10 @@ const NewForumThread = () => {
       return;
     }
 
-    const url = "/api/v1/forum_thread/create";
-    if ((title.length == 0 || body.length == 0, category.length == 0)) return;
+    const url =
+      `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/create`;
+    if ((title.length === 0 || body.length === 0, category.length === 0))
+      return;
 
     const forumThreadContent = {
       title,
@@ -41,7 +45,9 @@ const NewForumThread = () => {
       user_id: user.id,
     };
 
-    const token = document.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+    const token = document.querySelector<HTMLMetaElement>(
+      'meta[name="csrf-token"]'
+    )?.content;
     if (!token) {
       console.error("CSRF token not found");
       return;
@@ -69,9 +75,7 @@ const NewForumThread = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-sm-12 col-lg-6 offset-lg-3">
-          <h1 className="font-weight-normal mb-5">
-            Add a new Thread
-          </h1>
+          <h1 className="font-weight-normal mb-5">Add a new Thread</h1>
           <form onSubmit={onSubmit}>
             <div className="form-group">
               <label htmlFor="title">Thread Title</label>
@@ -92,15 +96,17 @@ const NewForumThread = () => {
                 className="form-control"
                 required
                 onChange={(event) => onChange(event, setCategory)}
-                defaultValue="Question"
-                >
-                  <option value="Question">Question</option>
-                  <option value="Discussion">Discussion</option>
-                  <option value="Off-Advice">Off-Advice</option>
-                  <option value="Other">Other</option>
-                </select>
+                defaultValue="Barter"
+              >
+                <option value="Barter">Barter</option>
+                <option value="Buy with AvoCurve Coin">
+                  Buy with AvoCurve Coin
+                </option>
+                <option value="Off-Advice">Off-Advice</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
-            
+
             <div className="form-group">
               <label htmlFor="body"> body</label>
               <textarea

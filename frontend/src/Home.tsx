@@ -6,9 +6,8 @@ import { Link } from "react-router-dom";
     <div className="jumbotron jumbotron-fluid bg-transparent">
       <div className="container secondary-color">
         <h1 className="display-4">Curvify</h1>
-        <p className="lead">
-           Post threads which others can comment on.
-           Make mutually beneficial exchanges in NUS through batering or using AvoCurve coins.
+         <p className="lead">
+           Make mutually beneficial exchanges in by bartering or using AvoCurve coins.
         </p>
         <hr className="my-4" />
         <Link

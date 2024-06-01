@@ -4,14 +4,13 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import ForumThreads from "./ForumThreads";
-// import ForumThread from "./ForumThread";
+import ForumThread from "./ForumThread";
 import NewForumThread from "./NewForumThread";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import ResponsiveAppBar from "./ResponsiveAppBar";
-// import EditForumThreadComment from "./EditForumThreadComment";
-// import EditForumThread from "./EditForumThread";
-
+import EditForumThreadComment from "./EditForumThreadComment";
+import EditForumThread from "./EditForumThread";
 
 interface User {
   id: number;
@@ -56,13 +55,13 @@ const App = () => {
                 <Route path="/signUp" element={<SignUp />} />
                 <Route path="/signIn" element={<SignIn />} />
                 <Route path="/newForumThread" element={<NewForumThread />} />
-              {/*
+              
                 <Route path="/forumThread/:id" element={<ForumThread />} />
                 <Route path="/EditForumThread/:id" element={<EditForumThread />} />
                 <Route path="/EditForumThreadComment/:id" element={<EditForumThreadComment />} />
-                 />
+                
              
-                 */}
+                 
               </Routes>
           </UserContext.Provider>
       </Router>
