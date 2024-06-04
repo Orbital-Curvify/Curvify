@@ -11,7 +11,7 @@ import SignUp from "./SignUp";
 import ResponsiveAppBar from "./ResponsiveAppBar";
 import EditForumThreadComment from "./EditForumThreadComment";
 import EditForumThread from "./EditForumThread";
-
+import './App.css'
 interface User {
   id: number;
   username: string;

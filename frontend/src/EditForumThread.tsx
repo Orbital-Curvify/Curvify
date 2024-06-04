@@ -65,13 +65,13 @@ const EditForumThread: React.FC = () => {
       body: stripHtmlEntities(forumThread.body),
       // user_id: user.id,
     };
-    const token = (
-      document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
-    ).content;
+    // const token = (
+    //   document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
+    // ).content;
     fetch(url, {
       method: "PUT",
       headers: {
-        "X-CSRF-Token": token,
+        // "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(forumThreadContent),
@@ -137,10 +137,10 @@ const EditForumThread: React.FC = () => {
                 onChange={handleChange}
               />
             </div>
-            <button type="submit" className="btn custom-button mt-3">
+            <button type="submit" className="btn btn-dark mt-3">
               Edit Thread
             </button>
-            <Link to="/forumThreads" className="btn custom-button mt-3 ">
+            <Link to="/forumThreads" className="btn btn-dark mt-3 ">
               Back to threads
             </Link>
           </form>
