@@ -14,19 +14,18 @@ const SignUp = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const url =
-      "${process.env.REACT_APP_BACKEND_API_URL}/api/v1/v1/users/create";
+    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/users/create`;
     if (username.length === 0) return;
     const signInContent = {
       username,
     };
-    const token = document
-      .querySelector('meta[name="csrf-token"]')
-      ?.getAttribute("content");
+    // const token = document
+    //   .querySelector('meta[name="csrf-token"]')
+    //   ?.getAttribute("content");
     fetch(url, {
       method: "POST",
       headers: {
-        "X-CSRF-Token": token,
+        // "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(signInContent),
@@ -43,7 +42,7 @@ const SignUp = () => {
         setIsUserCreated(true);
         setTimeout(() => {
           navigate(`/forumThreads`);
-        }, 5000);
+        }, 2000);
       })
       .catch((error) => console.log(error.message));
   };
@@ -79,10 +78,10 @@ const SignUp = () => {
               />
             </div>
 
-            <button type="submit" className="btn custom-button mt-3">
+            <button type="submit" className="btn btn-dark mt-3">
               Sign Up
             </button>
-            <Link to="/forumThreads" className="btn custom-button mt-3 ">
+            <Link to="/forumThreads" className="btn btn-dark mt-3 ">
               Back to threads
             </Link>
           </form>
