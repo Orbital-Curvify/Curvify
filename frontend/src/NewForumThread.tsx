@@ -32,7 +32,8 @@ const NewForumThread = () => {
       return;
     }
 
-    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/create`;
+    const url =
+      `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/create`;
     if ((title.length === 0 || body.length === 0, category.length === 0))
       return;
 
@@ -44,19 +45,18 @@ const NewForumThread = () => {
       user_id: user.id,
     };
 
-    // const token = document.querySelector<HTMLMetaElement>(
-    //   'meta[name="csrf-token"]'
-    // )?.content;
-    // if (!token) {
-    //   console.error("CSRF token not found");
-    //   return;
-    // }
+    const token = document.querySelector<HTMLMetaElement>(
+      'meta[name="csrf-token"]'
+    )?.content;
+    if (!token) {
+      console.error("CSRF token not found");
+      return;
+    }
 
     fetch(url, {
       method: "POST",
       headers: {
-        // "X-CSRF-Token": token,
-        "Author":"dwwd",
+        "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(forumThreadContent),
@@ -118,11 +118,11 @@ const NewForumThread = () => {
                 onChange={(event) => onChange(event, setBody)}
               />
             </div>
-            <button type="submit" className="btn btn-dark mt-3">
+            <button type="submit" className="btn custom-button mt-3">
               Create Thread
             </button>
 
-            <Link to="/forumThreads" className="btn btn-dark mt-3 ">
+            <Link to="/forumThreads" className="btn custom-button mt-3 ">
               Back to threads
             </Link>
           </form>

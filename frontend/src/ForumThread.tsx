@@ -63,9 +63,9 @@ const ForumThread = (): JSX.Element => {
       .catch(() => navigate("/forumThreads"));
   }, [params.id, navigate]);
 
-  // const token = (
-  //   document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
-  // ).content;
+  const token = (
+    document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
+  ).content;
 
   const addHtmlEntities = (str: string): string => {
     return String(str).replace(/&lt;/g, "<").replace(/&gt;/g, ">");
@@ -73,14 +73,14 @@ const ForumThread = (): JSX.Element => {
 
   const deleteForumThread = (): void => {
     const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/destroy/${params.id}`;
-    // const token = (
-    //   document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
-    // ).content;
+    const token = (
+      document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
+    ).content;
 
     fetch(url, {
       method: "DELETE",
       headers: {
-        // "X-CSRF-Token": token,
+        "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
     })
@@ -96,13 +96,13 @@ const ForumThread = (): JSX.Element => {
 
   const deleteForumThreadComments = (id: number): void => {
     const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/destroy/${id}`;
-    // const token = (
-    //   document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
-    // ).content;
+    const token = (
+      document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement
+    ).content;
     fetch(url, {
       method: "DELETE",
       headers: {
-        // "X-CSRF-Token": token,
+        "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
     })
@@ -130,7 +130,7 @@ const ForumThread = (): JSX.Element => {
           <div className="btn-group mr-2" role="group">
             <Link
               to={`/editForumThreadComment/${forumThreadCommentID}`}
-              className="btn btn-dark"
+              className="btn custom-button"
             >
               Edit
             </Link>
@@ -167,7 +167,7 @@ const ForumThread = (): JSX.Element => {
           </button>
           <Link
             to={`/editForumThread/${forumThread.id}`}
-            className="btn btn-dark"
+            className="btn custom-button"
           >
             Edit
           </Link>
@@ -271,12 +271,12 @@ const ForumThread = (): JSX.Element => {
     };
     setBody("");
     event.preventDefault();
-    const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/create`;
+    const url =`${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread_comments/create`;
     if (body.length === 0) return;
     fetch(url, {
       method: "POST",
       headers: {
-        // "X-CSRF-Token": token,
+        "X-CSRF-Token": token,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(forumThreadCommentContent),
@@ -320,7 +320,8 @@ const ForumThread = (): JSX.Element => {
                   <TextField
                     value={body}
                     style={{ textAlign: "left" }}
-                    placeholder="Comments?"
+                    placeholder="Message Field"
+                    label="MultiLine and FloatingLabel"
                     multiline
                     rows={5}
                     className="card form-control"
@@ -330,7 +331,7 @@ const ForumThread = (): JSX.Element => {
                   />
                   <button
                     type="submit"
-                    className="btn btn-primary btn-dark position-absolute bottom-0 end-0"
+                    className="btn btn-primary custom-button position-absolute bottom-0 end-0"
                   >
                     Comment
                   </button>
@@ -345,7 +346,7 @@ const ForumThread = (): JSX.Element => {
             {AccessControlThread(forumThread.user_id)}
           </div>
         </div>
-        <Link to="/forumThreads" className="btn btn-dark ">
+        <Link to="/forumThreads" className="btn custom-button ">
           Back to threads
         </Link>
       </div>

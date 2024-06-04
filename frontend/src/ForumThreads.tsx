@@ -16,6 +16,8 @@ const ForumThreads = (): JSX.Element => {
   const [currentFilter, setCurrentFilter] = useState<string>("All");
   // const { user, setUser } = useContext(UserContext);
 
+ 
+  
   useEffect(() => {
     const url = `${process.env.REACT_APP_BACKEND_API_URL}/api/v1/forum_thread/index`;
     function ForumThreadDeterminer(forumThread: ForumThread[]): any {
@@ -32,6 +34,7 @@ const ForumThreads = (): JSX.Element => {
       </div>
     );
 
+    
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -91,7 +94,7 @@ const ForumThreads = (): JSX.Element => {
             </p>
             <Link
               to={`/forumThread/${forumThread.id}`}
-              className="btn btn-dark"
+              className="btn custom-button"
             >
               View Post
             </Link>
@@ -121,7 +124,7 @@ const ForumThreads = (): JSX.Element => {
       <div className="py-5">
         <main className="container">
           <div className="text-end mb-3">
-            <Link to="/newForumThread" className="btn btn-dark">
+            <Link to="/newForumThread" className="btn custom-button">
               Create New Thread
             </Link>
           </div>
@@ -147,7 +150,7 @@ const ForumThreads = (): JSX.Element => {
             </label>
           </div>
           <div className="row">{forumThreads}</div>
-          <Link to="/" className="btn btn-dark">
+          <Link to="/" className="btn custom-button">
             About
           </Link>
         </main>

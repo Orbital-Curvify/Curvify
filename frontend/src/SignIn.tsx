@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext, createContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "./App";
 
+
 interface User {
   id: number;
   username: string;
@@ -12,22 +13,19 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const { user, setUser } = useContext(UserContext);
-
-  const onChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setFunction: React.Dispatch<React.SetStateAction<string>>
-  ) => {
+  
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>, setFunction: React.Dispatch<React.SetStateAction<string>>) => {
     setFunction(event.target.value);
   };
-
+  
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (username.length === 0) return;
     const signInContent = {
       username,
     };
-
-    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/login`, {
+   
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +42,7 @@ const SignIn = () => {
         navigate(`/forumThreads`);
       });
   };
-
+  
   return (
     <div className="container mt-5">
       <div className="row">
@@ -63,11 +61,11 @@ const SignIn = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-dark mt-3">
+            <button type="submit" className="btn custom-button mt-3">
               Sign In
             </button>
 
-            <Link to="/forumThreads" className="btn btn-dark mt-3 ">
+            <Link to="/forumThreads" className="btn custom-button mt-3 ">
               Back to threads
             </Link>
           </form>

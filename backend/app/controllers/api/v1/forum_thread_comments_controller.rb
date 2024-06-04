@@ -1,7 +1,6 @@
 class Api::V1::ForumThreadCommentsController < ApplicationController
     before_action :set_forumThreadComment, only: %i[show destroy update]
     before_action :get_commentsForCurrentThread, only: %i[showCommentsForThread]
-    skip_before_action :verify_authenticity_token
     def index
       forumThreadComment = ForumThreadComment.all.order(created_at: :desc)
       render json: forumThreadComment 
